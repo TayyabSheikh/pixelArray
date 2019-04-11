@@ -34,13 +34,14 @@ public class Board extends Thread {
         start();
 
     }
-
-    @Override
-    public void run() {
-
+    void animate(){
         for (int i = 0 ; i < rows ; i++ )
             for (int z = 0; z < columns; z++) {
                 pixels[i][z] = '0';
+                if(z!=0)
+                    pixels[i][z-1] = '-';
+                else if(i != 0 && z == 0)
+                    pixels[i-1][columns-1] = '-';
                 draw();
                 try {
                     sleep(100);
@@ -48,6 +49,11 @@ public class Board extends Thread {
                     e.printStackTrace();
                 }
             }
+    }
+    @Override
+    public void run() {
+        animate();
+        
     }
 
 
